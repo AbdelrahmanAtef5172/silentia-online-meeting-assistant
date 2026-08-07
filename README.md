@@ -118,7 +118,7 @@ Classifies a **100-sign ASL vocabulary** (`book`, `drink`, `go`, `mother`, `help
 
 A vanilla LSTM only sees the past; a BiLSTM runs two LSTMs in parallel — one over the sequence forwards, one backwards — so every prediction benefits from **both** past and future context. This is a natural fit for sign sequences, where a word's meaning depends on signs that come before *and* after it.
 
-![Bidirectional RNN structure — two hidden layers, one reading the sequence forward and one backward](assets/bilstm_architecture.png)
+![Bidirectional RNN structure — two hidden layers, one reading the sequence forward and one backward](assets/bilstm_diagram.png)
 
 ### 🧠 LLM Component — Sign-Text Repair Engine
 
