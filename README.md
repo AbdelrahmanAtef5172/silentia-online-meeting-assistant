@@ -23,6 +23,7 @@ Silentia fuses **computer vision, sign language recognition, large language mode
 - [Testing](#testing)
 - [Project structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
+- [Future improvements](#future-improvements)
 
 ---
 
@@ -386,6 +387,23 @@ Each component is self-contained: its own source, tests, demos, configs, block d
 | `No module named ...` from a component | Component's venv is missing a dep — re-run its `pip install -r requirements.txt` |
 | Vision/` no face detected` | Increase face-detection confidence, or ensure the subject's face is visible |
 | Pipeline prints `success: false` | Inspect the per-stage `error` field in the JSON result |
+
+---
+
+## Future improvements
+
+This section lists enhancements we are actively considering to make Silentia faster, smarter, and ready for real-world online-meeting deployment.
+
+- **Real-time streaming inference** — currently the pipeline is batch-based (video → results). We're working toward near-zero-latency, frame-streaming inference for live interpretation during calls.
+- **Beam-search decoding for continuous signs** — richer sentence-level decoding (instead of per-window classification) for grammatical, long-form sign sequences.
+- **Vocabulary expansion** — extending the 100-sign ASL vocabulary toward WLASL-1000 and beyond.
+- **Hand-keypoint models & multi-subject tracking** — replacing coarse frame-based features with hand-keypoint skeletons, and robustly isolating multiple signers in one frame.
+- **Multi-lingual sign support & multi-language TTS** — beyond ASL, and more target languages for speech output.
+- **Emotion and tone detection** — Vision-based emotion recognition feeding expressive TTS voice selection for more natural, human speech.
+- **GPU / ONNX / TensorRT optimization** — cheaper and faster inference for SLR and Vision, especially at scale on CPU-only hardware.
+- **Additional LLM providers & offline options** — more providers plus self-hosted open-weight models (e.g., Llama.cpp) for privacy-sensitive deployments.
+- **Dockerized end-to-end deployment** — a single-command stack for reproducible production and CI deployment.
+- **Native meeting integrations** — plug in as an interpreter (Zoom, Microsoft, Google Meet) that listens, translates, and speaks into the room.
 
 ---
 
