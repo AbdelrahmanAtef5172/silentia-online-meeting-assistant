@@ -68,3 +68,9 @@ tmp/
 *.wav
 *.mp3
 *.webm
+
+# ------------------------------------------------------------------
+# Exceptions: keep SLR component demo videos & evaluation results
+# ------------------------------------------------------------------
+!SLR component/results/
+!SLR component/demos/**/*.mp4
