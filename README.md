@@ -20,11 +20,10 @@ Silentia fuses **computer vision, sign language recognition, large language mode
 - [Getting started](#getting-started)
 - [Configuration reference](#configuration-reference)
 - [Output format](#output-format)
+- [Technical concepts](#technical-concepts)
 - [Testing](#testing)
 - [Project structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -350,16 +349,43 @@ Per-component notebooks and demo scripts are included for reproducing the report
 │   ├── examples/            #   standalone + pipeline usage
 │   ├── scripts/             #   run_standalone, benchmark
 │   └── tests/
-└── "TTS component"/             # Gender-matched speech synthesis (Edge/Coqui)
-    ├── cli/                   #   run_standalone, list_voices, benchmark
-    ├── engines/              #   edge_provider, coqui_provider
-    ├── lib/                  #   service, voice_selector, audio output
-    └── tests/
+├── "TTS component"/             # Gender-matched speech synthesis (Edge/Coqui)
+│   ├── cli/                   #   run_standalone, list_voices, benchmark
+│   ├── engines/              #   edge_provider, coqui_provider
+│   ├── lib/                  #   service, voice_selector, audio output
+│   └── tests/
+├── assets/                      # Technical architecture diagrams (ViT, BiLSTM, Transformer)
+├── silentia_project_infographic.jpg
+└── README.md
 ```
 
 > **Note:** directories contain spaces (e.g. `Vision component/`). Quote paths in shell commands, as shown above.
 
 Each component is self-contained: its own source, tests, demos, configs, block diagrams, and documentation PDFs.
+
+---
+
+## Technical concepts
+
+The core of Silentia rests on three proven deep-learning architectures. The diagrams below illustrate how each one works and where Silentia uses it.
+
+### Vision Transformer (ViT)
+
+The **Vision component** classifies gender using a ViT-B/16 model fine-tuned on UTKFace. Unlike CNNs that slide over the image with convolutions, a ViT splits the input image into fixed-size patches, flattens each patch into an embedding, and processes them as a sequence through standard Transformer blocks — learning spatial relationships via self-attention.
+
+![Vision Transformer architecture — patch embedding, positional encoding, Transformer encoder, classification head (Dosovitskiy et al., 2021)](assets/vit_architecture.png)
+
+### Bidirectional LSTM (BiLSTM)
+
+The **SLR component** classifies sign-language sequences with a BiLSTM. A vanilla LSTM only sees the past; a BiLSTM runs two LSTMs in parallel — one over the sequence forwards, one backwards — so every prediction benefits from **both** past and future context. This is a natural fit for sign sequences, where a word's meaning depends on signs that come before *and* after it.
+
+![Bidirectional RNN structure — two hidden layers, one reading the sequence forward and one backward (Incfk8, CC BY-SA 4.0)](assets/bilstm_architecture.png)
+
+### Transformer Encoder
+
+The **LLM component** is powered by Transformer-based LLMs (Llama 3.1, DeepSeek, GPT-OSS). The Transformer encoder processes text as a sequence of token embeddings, mixing information across all positions at once with multi-head self-attention — the mechanism that lets the model repair telegraphic sign language ("mother like cook food") into fluent spoken English ("My mother likes to cook food.").
+
+![Transformer encoder block — multi-head self-attention + feed-forward network (Jay Alammar, The Illustrated Transformer)](assets/transformer_encoder_architecture.png)
 
 ---
 
@@ -373,23 +399,6 @@ Each component is self-contained: its own source, tests, demos, configs, block d
 | `No module named ...` from a component | Component's venv is missing a dep — re-run its `pip install -r requirements.txt` |
 | Vision/` no face detected` | Increase face-detection confidence, or ensure the subject's face is visible |
 | Pipeline prints `success: false` | Inspect the per-stage `error` field in the JSON result |
-
----
-
-## Roadmap
-
-- [ ] Continuous-sign sentence-level decoding with beam search
-- [ ] Expanded vocabulary beyond 100 signs
-- [ ] Real-time (streaming) inference across the full pipeline
-- [ ] Lip-sync / avatar output (visual feedback for sign-language users)
-- [ ] Dockerized end-to-end deployment
-- [ ] Multi-language sign support (beyond ASL)
-
----
-
-## Acknowledgments
-
-Built with PyTorch, OpenCV, HuggingFace, Groq, OpenRouter, Edge-TTS, and Coqui TTS — and the support of the people who believe communication should include everyone.
 
 ---
 
