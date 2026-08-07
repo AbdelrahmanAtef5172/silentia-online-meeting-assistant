@@ -161,7 +161,7 @@ The control plane that wires the four components together.
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/AbdelrahmanAtef5172/silentia.git
+git clone https://github.com/AbdelrahmanAtef5172/silentia-online-meeting-assistant.git
 cd silentia
 
 # Create each component's virtual environment
