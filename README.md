@@ -20,7 +20,6 @@ Silentia fuses **computer vision, sign language recognition, large language mode
 - [Getting started](#getting-started)
 - [Configuration reference](#configuration-reference)
 - [Output format](#output-format)
-- [Technical concepts](#technical-concepts)
 - [Testing](#testing)
 - [Project structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
@@ -101,6 +100,10 @@ Real-time **gender classification** from video using a ViT-B/16 classifier head 
 
 **Stack:** PyTorch · OpenCV (SSD face detector) · ViT-B/16 · Albumentations
 
+Unlike CNNs that slide over the image with convolutions, a ViT splits the input image into fixed-size patches, flattens each patch into an embedding, and processes them as a sequence through standard Transformer blocks — learning spatial relationships via self-attention.
+
+![Vision Transformer architecture — patch embedding, positional encoding, Transformer encoder, classification head](assets/vit_architecture.png)
+
 ### 🤟 SLR Component — Sign Language Recognition
 
 Classifies a **100-sign ASL vocabulary** (`book`, `drink`, `go`, `mother`, `help`, `computer`, …) into text sequences, using the WLASL-100 dataset.
@@ -113,6 +116,10 @@ Classifies a **100-sign ASL vocabulary** (`book`, `drink`, `go`, `mother`, `help
 
 **Stack:** PyTorch · OpenCV · (Bi)LSTM sequence models · WLASL-100
 
+A vanilla LSTM only sees the past; a BiLSTM runs two LSTMs in parallel — one over the sequence forwards, one backwards — so every prediction benefits from **both** past and future context. This is a natural fit for sign sequences, where a word's meaning depends on signs that come before *and* after it.
+
+![Bidirectional RNN structure — two hidden layers, one reading the sequence forward and one backward](assets/bilstm_architecture.png)
+
 ### 🧠 LLM Component — Sign-Text Repair Engine
 
 Repairs the missing articles, prepositions, and inflection that are inherent to sign language, producing natural, TTS-ready spoken English.
@@ -124,6 +131,10 @@ Repairs the missing articles, prepositions, and inflection that are inherent to 
 - `standalone` and `system` modes; `development` and `production` environments
 
 **Stack:** Python · Groq / OpenRouter / HuggingFace APIs · Pydantic schemas
+
+The LLM component is powered by Transformer-based LLMs (Llama 3.1, DeepSeek, GPT-OSS). The Transformer encoder processes text as a sequence of token embeddings, mixing information across all positions at once with multi-head self-attention — the mechanism that lets the model repair telegraphic sign language ("mother like cook food") into fluent spoken English ("My mother likes to cook food.").
+
+![Transformer encoder block — multi-head self-attention + feed-forward network](assets/transformer_encoder_architecture.png)
 
 ### 🔊 TTS Component — Text-to-Speech
 
@@ -362,30 +373,6 @@ Per-component notebooks and demo scripts are included for reproducing the report
 > **Note:** directories contain spaces (e.g. `Vision component/`). Quote paths in shell commands, as shown above.
 
 Each component is self-contained: its own source, tests, demos, configs, block diagrams, and documentation PDFs.
-
----
-
-## Technical concepts
-
-The core of Silentia rests on three proven deep-learning architectures. The diagrams below illustrate how each one works and where Silentia uses it.
-
-### Vision Transformer (ViT)
-
-The **Vision component** classifies gender using a ViT-B/16 model fine-tuned on UTKFace. Unlike CNNs that slide over the image with convolutions, a ViT splits the input image into fixed-size patches, flattens each patch into an embedding, and processes them as a sequence through standard Transformer blocks — learning spatial relationships via self-attention.
-
-![Vision Transformer architecture — patch embedding, positional encoding, Transformer encoder, classification head (Dosovitskiy et al., 2021)](assets/vit_architecture.png)
-
-### Bidirectional LSTM (BiLSTM)
-
-The **SLR component** classifies sign-language sequences with a BiLSTM. A vanilla LSTM only sees the past; a BiLSTM runs two LSTMs in parallel — one over the sequence forwards, one backwards — so every prediction benefits from **both** past and future context. This is a natural fit for sign sequences, where a word's meaning depends on signs that come before *and* after it.
-
-![Bidirectional RNN structure — two hidden layers, one reading the sequence forward and one backward (Incfk8, CC BY-SA 4.0)](assets/bilstm_architecture.png)
-
-### Transformer Encoder
-
-The **LLM component** is powered by Transformer-based LLMs (Llama 3.1, DeepSeek, GPT-OSS). The Transformer encoder processes text as a sequence of token embeddings, mixing information across all positions at once with multi-head self-attention — the mechanism that lets the model repair telegraphic sign language ("mother like cook food") into fluent spoken English ("My mother likes to cook food.").
-
-![Transformer encoder block — multi-head self-attention + feed-forward network (Jay Alammar, The Illustrated Transformer)](assets/transformer_encoder_architecture.png)
 
 ---
 
