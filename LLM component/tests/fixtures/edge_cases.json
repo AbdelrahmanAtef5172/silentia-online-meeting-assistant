@@ -1,0 +1,123 @@
+[
+  {
+    "id": "edge_001",
+    "input": "",
+    "category": "empty",
+    "notes": "Empty string"
+  },
+  {
+    "id": "edge_002",
+    "input": null,
+    "category": "empty",
+    "notes": "None input"
+  },
+  {
+    "id": "edge_003",
+    "input": "   \n\t  ",
+    "category": "empty",
+    "notes": "Whitespace only"
+  },
+  {
+    "id": "edge_004",
+    "input": "... !!! ???",
+    "category": "punctuation_only",
+    "notes": "Only punctuation marks"
+  },
+  {
+    "id": "edge_005",
+    "input": "1234 5678 9.99 $100",
+    "category": "number_heavy",
+    "notes": "Only numbers and currency"
+  },
+  {
+    "id": "edge_006",
+    "input": "A1B2 C3D4 E5F6",
+    "category": "number_heavy",
+    "notes": "Alphanumeric but mostly numbers"
+  },
+  {
+    "id": "edge_007",
+    "input": "She went to the store yesterday.",
+    "category": "passthrough",
+    "notes": "Already grammatically correct"
+  },
+  {
+    "id": "edge_008",
+    "input": "The patient is feeling better today.",
+    "category": "passthrough",
+    "notes": "Already correct with medical context"
+  },
+  {
+    "id": "edge_009",
+    "input": "I need help.",
+    "category": "passthrough",
+    "notes": "Short but correct sentence"
+  },
+  {
+    "id": "edge_010",
+    "input": "she go store yesterday buy apple",
+    "category": "normal",
+    "notes": "Typical SLR output requiring correction"
+  },
+  {
+    "id": "edge_011",
+    "input": "hello",
+    "category": "normal",
+    "notes": "Single word (still sent to LLM)"
+  },
+  {
+    "id": "edge_012",
+    "input": "I I I go go store",
+    "category": "normal",
+    "notes": "Repeated words"
+  },
+  {
+    "id": "edge_013",
+    "input": "HELLO HOW ARE YOU",
+    "category": "normal",
+    "notes": "All uppercase"
+  },
+  {
+    "id": "edge_014",
+    "input": "Bonjour comment ça va",
+    "category": "normal",
+    "notes": "Mixed language (French)"
+  },
+  {
+    "id": "edge_015",
+    "input": "a",
+    "category": "normal",
+    "notes": "Single character"
+  },
+  {
+    "id": "edge_016",
+    "input": "she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store she go store",
+    "category": "too_long",
+    "notes": "Very long input exceeding max tokens",
+    "word_count": 150
+  },
+  {
+    "id": "edge_017",
+    "input": "123-456-7890",
+    "category": "number_heavy",
+    "notes": "Phone number"
+  },
+  {
+    "id": "edge_018",
+    "input": "patient show symptom high fever three day",
+    "category": "normal",
+    "notes": "Medical SLR output"
+  },
+  {
+    "id": "edge_019",
+    "input": "###",
+    "category": "punctuation_only",
+    "notes": "Special characters only"
+  },
+  {
+    "id": "edge_020",
+    "input": "yes",
+    "category": "normal",
+    "notes": "Single word affirmative"
+  }
+]

@@ -1,0 +1,119 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# LLM Component — Master Configuration
+# Environment sections override defaults.
+# Active environment: ENV env-var or --env CLI flag (default: development)
+# ─────────────────────────────────────────────────────────────────────────────
+
+defaults:
+
+  component:
+    name: "llm_correction"
+    version: "1.0.0"
+    mode: "system"              # standalone | system
+    log_level: "INFO"           # DEBUG | INFO | WARNING | ERROR
+
+  providers:
+    primary:
+      name: "groq"
+      model: "llama-3.1-8b-instant"
+      temperature: 0.1
+      max_tokens: 512
+      timeout_seconds: 8.0
+      max_retries: 2
+    secondary:
+      name: "openrouter"
+      model: "openai/gpt-oss-120b:free"
+      temperature: 0.1
+      max_tokens: 512
+      timeout_seconds: 12.0
+      max_retries: 2
+    tertiary:
+      name: "openrouter_fallback"
+      model: "openrouter/free"
+      temperature: 0.1
+      max_tokens: 512
+      timeout_seconds: 12.0
+      max_retries: 1
+    quaternary:
+      name: "huggingface"
+      model: "deepseek-ai/DeepSeek-V4-Flash:novita"
+      temperature: 0.1
+      max_tokens: 512
+      timeout_seconds: 25.0
+      max_retries: 1
+
+  input_guard:
+    max_input_tokens: 400
+    min_alpha_ratio: 0.3
+    passthrough_max_words: 3
+
+  cache:
+    enabled: true
+    max_size: 512
+    ttl_seconds: 3600
+
+  output:
+    max_output_length_ratio: 3.0
+    strip_markdown: true
+    strip_quotes: true
+
+  prompts:
+    system: |
+      You correct grammar and vocabulary. Input is raw sign language recognition
+      output — it may have missing words, wrong tense, missing articles, or
+      missing prepositions.
+
+      Rules:
+      - Output ONLY the corrected sentence. No explanations, no preamble.
+      - Do NOT add information not implied by the input.
+      - Preserve the original meaning exactly.
+      - Use natural spoken English suitable for text-to-speech.
+      - If the input is already correct, return it unchanged.
+      - Add missing articles (a, an, the), prepositions (to, in, on, at, for, with),
+        and auxiliary verbs (is, are, was, were, will, have, has, do, does).
+      - Match the tense to time words: "tomorrow" → future, "yesterday" → past,
+        "every day" → present, "ago" → past.
+      - Put a space between every word. Never merge two words into one.
+        "willgo" → "will go", "grandparentstomorrow" → "grandparents tomorrow",
+        "tostore" → "to store", "thecontract" → "the contract",
+        "ofhigh" → "of high".
+      - Never replace a word with a different word. If the input says "meet",
+        use "meet" or "met" — do not change it to "went" or "go".
+      - If the input says "go" and a future time like "tomorrow", use "will go".
+        If "go" near a person or place, add "to" after "go" ("go to").
+      {domain_instruction}
+      {glossary_instruction}
+
+    domain_instructions:
+      medical: "Use standard medical terminology. Prefer formal clinical language."
+      legal: "Use precise legal terminology. Prefer formal language."
+      casual: "Use natural, conversational language."
+      default: ""
+
+    glossary_instruction_template: |
+      The following word substitutions are domain-specific and must be applied:
+      {glossary_pairs}
+
+
+development:
+  component:
+    log_level: "DEBUG"
+    mode: "standalone"
+  cache:
+    enabled: true
+  providers:
+    primary:
+      timeout_seconds: 20.0
+
+
+production:
+  component:
+    log_level: "WARNING"
+    mode: "system"
+  cache:
+    enabled: true
+    max_size: 1024
+  providers:
+    primary:
+      timeout_seconds: 10.0
+      max_retries: 3

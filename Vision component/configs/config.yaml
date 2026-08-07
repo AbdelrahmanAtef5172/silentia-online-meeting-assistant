@@ -1,0 +1,47 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Gender Detection Component — Master Configuration
+# Select environment: ENV=development | production (default: development)
+# ─────────────────────────────────────────────────────────────────────────────
+
+defaults:
+  component:
+    version: "1.0.0"
+
+  device:
+    preferred: "auto"
+
+  model_paths:
+    gender_classifier_weights: "vit_b16_gender_phase2.pth"
+
+  face_detection:
+    confidence_threshold: 0.85
+    multi_face_strategy: "largest" 
+
+  frame_gate:
+    stride: 5
+    phash_size: 16   # The size of the perceptual hash used for caching frames. 
+    cache_hamming_threshold: 10 # The maximum Hamming distance allowed for a frame to be considered similar to a cached frame.
+    cache_resize_to: [64, 64] 
+
+  inference:
+    use_fp16: false  # Whether to use half-precision (FP16) for inference. This can speed up inference on compatible hardware but may reduce accuracy.
+    warmup_on_init: true # Whether to perform a warmup pass on the model during initialization. This can help stabilize performance and reduce latency for the first inference.
+
+  result_smoother:
+    window_size: 10  # The size of the window used for smoothing the results. A larger window will result in smoother predictions but may introduce more latency.
+    min_confidence_to_include: 0.55 # The minimum confidence required for a prediction to be included in the smoothing window. Predictions below this threshold will be ignored.
+
+# ── Environment overrides ─────────────────────────────────────────────────────
+
+development:
+  frame_gate:
+    stride: 5
+  inference:
+    use_fp16: false
+    warmup_on_init: false
+
+production:
+  frame_gate:
+    cache_hamming_threshold: 8
+  inference:
+    use_fp16: true

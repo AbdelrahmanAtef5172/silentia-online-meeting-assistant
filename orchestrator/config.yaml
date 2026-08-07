@@ -1,0 +1,37 @@
+pipeline:
+  slr_mode: "single"            # "single" | "continuous"
+  webcam_duration_sec: 10.0     # how many seconds to capture in webcam mode
+
+components:
+  vision:
+    root: "../Vision component"
+    venv: "../Vision component/venv"
+    script: "scripts/process_video.py"
+    config_path: "../Vision component/configs/config.yaml"
+    env: "development"
+
+  slr:
+    root: "../SLR component"
+    venv: "../SLR component/.venv"
+    checkpoint: "../SLR component/models/best_model.pt"
+    label_map: "../SLR component/config/label_map.json"
+    models_dir: "../SLR component/models"
+    device: "cpu"
+
+  llm:
+    root: "../LLM component"
+    venv: "../LLM component/.venv"
+    script: "scripts/run_standalone.py"
+    env: "development"
+
+  tts:
+    root: "../TTS component"
+    venv: "../TTS component/.venv"
+    script: "cli/run_standalone.py"
+    env: "development"
+
+timeouts_seconds:
+  vision: 600
+  slr: 600
+  llm: 120
+  tts: 120

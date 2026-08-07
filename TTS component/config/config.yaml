@@ -1,0 +1,74 @@
+defaults:
+
+  component:
+    name: "tts_component"
+    version: "1.0.0"
+    log_level: "INFO"
+
+  providers:
+    priority_order: ["edge", "coqui"]
+    force_provider: null
+
+    coqui:
+      model: "tts_models/en/vctk/vits"
+      use_gpu: false
+      model_cache_dir: null
+
+    edge:
+      timeout_seconds: 10.0
+      locale: "en-US"
+
+  voices:
+    coqui:
+      male:
+        - "p226"
+        - "p227"
+        - "p232"
+        - "p254"
+        - "p270"
+      female:
+        - "p225"
+        - "p228"
+        - "p229"
+        - "p236"
+        - "p238"
+
+    edge:
+      male:
+        - "en-US-GuyNeural"
+        - "en-US-ChristopherNeural"
+        - "en-GB-RyanNeural"
+      female:
+        - "en-US-JennyNeural"
+        - "en-US-AriaNeural"
+        - "en-GB-SoniaNeural"
+
+  audio:
+    output_dir: "output"
+    volume: 1.0
+    unknown_gender_default: "male"
+    auto_trim_silence: false
+
+  standalone:
+    print_result: true
+
+
+development:
+  component:
+    log_level: "DEBUG"
+  providers:
+    force_provider: null
+  audio:
+    output_dir: "output/dev"
+  standalone:
+    print_result: true
+
+
+production:
+  component:
+    log_level: "WARNING"
+  providers:
+    force_provider: "coqui"
+  audio:
+    output_dir: "output/prod"
+    auto_trim_silence: true

@@ -1,0 +1,31 @@
+# config_bilstm.yaml
+# BiLSTM configuration for the WLASL-100 SLR component.
+
+model:
+  input_dim: 227          # 33 pose + 21 left-hand + 21 right-hand landmarks * (x,y,z) + 2 presence flags
+  hidden_dim: 256         # hidden dimension of the BiLSTM
+  num_layers: 2           # number of BiLSTM layers
+  dropout: 0.3            # dropout rate in the BiLSTM
+  bidirectional: true     # whether the BiLSTM is bidirectional
+  num_classes: 100        # WLASL100
+
+data:
+  sequence_length: 64      # fixed frame count every clip is resampled to
+  pose_landmarks: 33       # number of pose landmarks (33 for MediaPipe Pose)
+  hand_landmarks: 21       # number of hand landmarks (21 for MediaPipe Hands)
+
+training:
+  batch_size: 32          # batch size for training and validation
+  epochs: 100             # maximum number of training epochs
+  learning_rate: 0.0003   # initial learning rate for the optimizer
+  weight_decay: 0.0001    # weight decay (L2 regularization) for the optimizer
+  label_smoothing: 0.1    # label smoothing factor for the loss function
+  early_stopping_patience: 15  # number of epochs with no improvement on the validation loss before stopping training
+  lr_scheduler: "cosine"  # learning rate scheduler type (cosine | plateau)
+  grad_clip_norm: 1.0     # maximum gradient norm for gradient clipping (to prevent exploding gradients)
+  val_split: 0.15         # only used if the dataset doesn't ship its own split
+  seed: 42                # random seed for reproducibility
+
+paths:
+  checkpoint: "checkpoints/best_model_bilstm.pt" # path to the trained BiLSTM model checkpoint
+  label_map: "checkpoints/label_map.json"        # path to the label map (class index -> word)

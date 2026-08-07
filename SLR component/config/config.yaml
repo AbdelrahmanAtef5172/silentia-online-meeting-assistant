@@ -1,0 +1,64 @@
+# config.yaml
+# Shared configuration for the Sign Language Recognition (SLR) component of the
+# multi-modal assistive pipeline (SLR -> LLM text correction -> gender-matched TTS).
+# This follows the same config.yaml convention used by the other components in the pipeline:
+# one file, human-editable, loaded once at process start, no secrets stored here.
+
+model:
+  input_dim: 227          # 33 pose + 21 left-hand + 21 right-hand landmarks * (x,y,z) + 2 presence flags
+  d_model: 192            # hidden dimension of the transformer encoder
+  nhead: 4                # number of attention heads in the transformer encoder
+  num_layers: 4           # number of transformer encoder layers
+  dim_feedforward: 512    # hidden dimension of the feedforward network in the transformer encoder
+  dropout: 0.2            # dropout rate in the transformer encoder
+  num_classes: 100        # WLASL100
+  max_seq_len: 128        # must be >= data.sequence_length
+
+data:
+  sequence_length: 64      # fixed frame count every clip is resampled to (train + inference)
+  pose_landmarks: 33       # number of pose landmarks (33 for MediaPipe Pose)
+  hand_landmarks: 21       # number of hand landmarks (21 for MediaPipe Hands)
+  target_sample_fps: 30    # frame rate keypoints are extracted at when source video fps differs
+
+mediapipe:
+  # Paths are for reference; ensure_mediapipe_models() constructs them from models_dir.
+  pose_model_path: "models/pose_landmarker_lite.task"
+  hand_model_path: "models/hand_landmarker.task"
+  pose_model_url: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task"
+  hand_model_url: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
+  num_hands: 2     # maximum number of hands to detect (0, 1, or 2)
+  min_detection_confidence: 0.5   # minimum confidence for the initial detection of hands/pose
+  min_tracking_confidence: 0.5    # minimum confidence for the tracking of hands/pose across frames
+
+inference:
+  device: "cpu"           # always cpu (GPU is intentionally not used)
+  top_k: 3                # number of top predictions to return for each clip
+  confidence_threshold: 0.30  # predictions below this are flagged low-confidence, not discarded outright
+
+continuous:
+  # heuristic, pause-based segmentation for turning a stream of frames into a sentence.
+  # see inference.py / ContinuousSignRecognizer docstring for the reasoning + limitations.
+  pause_frames_threshold: 8          # ~0.27s @ 30fps of no detected hands -> end of one sign
+  sentence_end_frames_threshold: 45  # ~1.5s @ 30fps of no detected hands -> end of utterance
+  min_segment_frames: 10           # shorter segments are treated as noise and discarded
+  max_segment_frames: 90           # force-finalize a segment even without a pause (bounds latency)
+  confidence_threshold: 0.30       # predictions below this are not appended to the sentence
+  suppress_repeated_words: true    # avoid appending the same recognized word twice in a row
+  frame_step: 1                    # process every Nth frame (1=all, 2=every other, etc.) to reduce latency
+
+paths:
+  checkpoint: "models/best_model.pt"          # path to the trained model checkpoint
+  label_map: "config/label_map.json"          # path to the label map (class index -> word)
+  models_dir: "models"                        # directory to store mediapipe models (pose + hand)
+
+training:
+  batch_size: 32             # batch size for training and validation
+  epochs: 100                # maximum number of training epochs
+  learning_rate: 0.0003      # initial learning rate for the optimizer
+  weight_decay: 0.0001       # weight decay (L2 regularization) for the optimizer
+  label_smoothing: 0.1       # label smoothing factor for the loss function
+  early_stopping_patience: 15 # number of epochs with no improvement on the validation loss before stopping training
+  lr_scheduler: "cosine"    # learning rate scheduler type (cosine | plateau)
+  grad_clip_norm: 1.0       # maximum gradient norm for gradient clipping (to prevent exploding gradients)
+  val_split: 0.15           # only used if the dataset doesn't ship its own split
+  seed: 42                  # random seed for reproducibility

@@ -1,0 +1,53 @@
+# requirements.txt
+# WLASL-100 Sign Language Recognition component
+#
+# ---------------------------------------------------------------------------
+# PyTorch install note (read this first)
+# ---------------------------------------------------------------------------
+# PyTorch is intentionally NOT pinned to a CUDA build below -- the correct wheel depends on
+# whether you're training/running on CPU or GPU, and on your CUDA version. Install torch
+# FIRST using the command for your setup, then `pip install -r requirements.txt` for
+# everything else.
+#
+#   Google Colab (CPU or GPU runtime): torch is preinstalled -- skip this step entirely.
+#
+#   Local, CPU only:
+#     pip install torch --index-url https://download.pytorch.org/whl/cpu
+#
+#   Local, NVIDIA GPU (CUDA 12.8, check your driver with `nvidia-smi` first):
+#     pip install torch --index-url https://download.pytorch.org/whl/cu128
+#
+#   See https://pytorch.org/get-started/locally/ for the exact command for your
+#   OS/CUDA version -- this changes over time and the site always has the current matrix.
+#
+# torch>=2.9 is required by this project (uses `weights_only=False` checkpoint loading and
+# batch_first Transformer encoder layers freely available since well before 2.9; 2.9+ is
+# specified defensively for the newest stable behavior as of mid-2026).
+torch>=2.9
+
+# ---------------------------------------------------------------------------
+# Core dependencies (same for CPU and GPU)
+# ---------------------------------------------------------------------------
+numpy>=1.26,<2.3
+opencv-python-headless>=4.9
+mediapipe>=0.10.20          # Tasks API (PoseLandmarker / HandLandmarker); legacy Holistic
+                             # solution is removed in current releases -- see sign_language_model.py
+PyYAML>=6.0
+tqdm>=4.66
+
+# ---------------------------------------------------------------------------
+# Training / notebook-only dependencies (not required for pure inference deployment)
+# ---------------------------------------------------------------------------
+scikit-learn>=1.4           # classification_report, precision/recall/F1, confusion matrix
+matplotlib>=3.8              # training curves, confusion matrix plots
+pandas>=2.2                  # WLASL metadata handling in the notebook
+kaggle>=1.6                  # optional: downloading the pre-processed WLASL video mirror
+yt-dlp>=2024.8.6             # optional: only needed if downloading videos directly from
+                             # the official WLASL YouTube-sourced release instead of a mirror
+
+# ---------------------------------------------------------------------------
+# Minimal deployment install (inference-only, no training)
+# ---------------------------------------------------------------------------
+# If you're only deploying `sign_language_model.py` + `inference.py` as part of the larger
+# assistive pipeline (no retraining), you only need:
+#   torch (see note above), numpy, opencv-python-headless, mediapipe, PyYAML

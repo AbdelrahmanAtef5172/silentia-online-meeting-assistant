@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tts_001",
+    "text": "She went to the store yesterday to buy apples.",
+    "gender": "female",
+    "expected_voice_provider": "coqui",
+    "notes": "Standard female voice test"
+  },
+  {
+    "id": "tts_002",
+    "text": "He needs assistance at the service counter.",
+    "gender": "male",
+    "expected_voice_provider": "coqui",
+    "notes": "Standard male voice test"
+  },
+  {
+    "id": "tts_003",
+    "text": "I need help.",
+    "gender": "unknown",
+    "notes": "Unknown gender — should fall back to default (male)"
+  },
+  {
+    "id": "tts_004",
+    "text": "",
+    "gender": "female",
+    "expected_status": "skipped",
+    "notes": "Empty text — must not call any provider"
+  },
+  {
+    "id": "tts_005",
+    "text": "The patient has been showing symptoms of high fever for three days.",
+    "gender": "female",
+    "notes": "Medical domain text"
+  },
+  {
+    "id": "tts_006",
+    "text": "...",
+    "gender": "male",
+    "expected_status": "skipped",
+    "notes": "Punctuation only"
+  }
+]

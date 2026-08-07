@@ -1,0 +1,5 @@
+# orchestrator requirements (only for the orchestrator itself)
+# Each component uses its own .venv — this is only for the main script
+PyYAML>=6.0
+opencv-python-headless>=4.9
+numpy>=1.26

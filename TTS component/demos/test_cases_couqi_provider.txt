@@ -1,0 +1,23 @@
+# Force Coqui
+source .venv/bin/activate && python cli/run_standalone.py --text "She went to the store." --gender female --provider coqui
+-------------------------------------------------------
+# Coqui + male → should use speaker "p226"
+source .venv/bin/activate && python cli/run_standalone.py --text "He needs assistance." --gender male --provider coqui
+------------------------------------------------------
+# Coqui + female → should use speaker "p225"
+source .venv/bin/activate && python cli/run_standalone.py --text "She needs assistance." --gender female --provider coqui
+------------------------------------------------------LOAD THE MODEL ONCE AND USE IT AGAIN AND AGAIN
+# using contiuos standalone repl mode for continuos input while loading the model once
+python cli/run_standalone.py --repl --gender female --provider coqui
+  He needs assistance at the counter.
+  She went to the store.
+  I need help please.
+  The referee has got paid in Egypt versus Argentina match in the world cup
+  meet our online meeting assistant for deaf people 
+  
+ python cli/run_standalone.py --repl --gender male --provider coqui
+  Now we are using the male voice 
+  She went to the store.
+  I need help please.
+  The referee has got paid in Egypt versus Argentina match in the world cup
+  meet our online meeting assistant for deaf people 

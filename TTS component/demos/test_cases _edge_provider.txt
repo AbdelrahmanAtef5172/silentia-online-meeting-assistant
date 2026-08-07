@@ -1,0 +1,20 @@
+# Edge (main) - needs internet
+source .venv/bin/activate && python cli/run_standalone.py --text "He needs assistance at the counter." --gender male
+---------------------------------------------------
+# Edge fails → falls back to Coqui (simulate by unplugging network, or use --mode file to force one)
+source .venv/bin/activate && python cli/run_standalone.py --text "I need help please." --gender female
+---------------------------------------------------
+# Force Edge
+source .venv/bin/activate && python cli/run_standalone.py --text "He went to the counter." --gender male --provider edge
+---------------------------------------------------
+# Invalid provider → graceful failure
+source .venv/bin/activate && python cli/run_standalone.py --text "Hello." --gender male --provider nonexistent
+---------------------------------------------------
+# Edge + male → should use "en-US-GuyNeural"
+source .venv/bin/activate && python cli/run_standalone.py --text "He needs assistance." --gender male --provider edge
+---------------------------------------------------
+# Edge + female → should use "en-US-JennyNeural"
+source .venv/bin/activate && python cli/run_standalone.py --text "She needs assistance." --gender female --provider edge
+---------------------------------------------------
+
+

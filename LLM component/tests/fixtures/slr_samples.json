@@ -1,0 +1,352 @@
+[
+  {
+    "id": "slr_001",
+    "input": "she go store yesterday buy apple",
+    "expected": "She went to the store yesterday to buy apples.",
+    "domain": "casual",
+    "notes": "Missing articles, wrong tense"
+  },
+  {
+    "id": "slr_002",
+    "input": "patient show symptom high fever three day",
+    "expected": "The patient has been showing symptoms of high fever for three days.",
+    "domain": "medical",
+    "notes": "Missing articles, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_003",
+    "input": "i want eat pizza my friend",
+    "expected": "I want to eat pizza with my friend.",
+    "domain": "casual",
+    "notes": "Missing infinitive marker, missing preposition"
+  },
+  {
+    "id": "slr_004",
+    "input": "he go school every day",
+    "expected": "He goes to school every day.",
+    "domain": "casual",
+    "notes": "Missing article, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_005",
+    "input": "they meet yesterday morning discuss project",
+    "expected": "They met yesterday morning to discuss the project.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article, missing infinitive marker"
+  },
+  {
+    "id": "slr_006",
+    "input": "doctor prescribe medicine patient",
+    "expected": "The doctor prescribed medicine to the patient.",
+    "domain": "medical",
+    "notes": "Missing articles, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_007",
+    "input": "i need go hospital",
+    "expected": "I need to go to the hospital.",
+    "domain": "medical",
+    "notes": "Missing infinitive marker, missing article, missing preposition"
+  },
+  {
+    "id": "slr_008",
+    "input": "she make cake yesterday",
+    "expected": "She made a cake yesterday.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article"
+  },
+  {
+    "id": "slr_009",
+    "input": "they play football tomorrow",
+    "expected": "They will play football tomorrow.",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb for future tense"
+  },
+  {
+    "id": "slr_010",
+    "input": "he drink coffee every morning",
+    "expected": "He drinks coffee every morning.",
+    "domain": "casual",
+    "notes": "Wrong tense (third person singular)"
+  },
+  {
+    "id": "slr_011",
+    "input": "patient feel better now",
+    "expected": "The patient feels better now.",
+    "domain": "medical",
+    "notes": "Missing article, wrong tense"
+  },
+  {
+    "id": "slr_012",
+    "input": "lawyer sign contract client",
+    "expected": "The lawyer signed the contract with the client.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_013",
+    "input": "court judge case tomorrow",
+    "expected": "The court will judge the case tomorrow.",
+    "domain": "legal",
+    "notes": "Missing articles, missing auxiliary verb"
+  },
+  {
+    "id": "slr_014",
+    "input": "tenant file complaint landlord",
+    "expected": "The tenant filed a complaint against the landlord.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_015",
+    "input": "i finish work early today",
+    "expected": "I finished work early today.",
+    "domain": "casual",
+    "notes": "Wrong tense"
+  },
+  {
+    "id": "slr_016",
+    "input": "she not like cold weather",
+    "expected": "She does not like cold weather.",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb for negation"
+  },
+  {
+    "id": "slr_017",
+    "input": "they build new house last year",
+    "expected": "They built a new house last year.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article"
+  },
+  {
+    "id": "slr_018",
+    "input": "nurse check patient temperature every hour",
+    "expected": "The nurse checks the patient's temperature every hour.",
+    "domain": "medical",
+    "notes": "Missing articles, missing possessive, wrong tense"
+  },
+  {
+    "id": "slr_019",
+    "input": "we go vacation next month",
+    "expected": "We will go on vacation next month.",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb, missing preposition"
+  },
+  {
+    "id": "slr_020",
+    "input": "attorney present evidence court",
+    "expected": "The attorney presented evidence in court.",
+    "domain": "legal",
+    "notes": "Missing article, wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_021",
+    "input": "she buy new car yesterday",
+    "expected": "She bought a new car yesterday.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article"
+  },
+  {
+    "id": "slr_022",
+    "input": "patient take medication morning night",
+    "expected": "The patient takes medication in the morning and at night.",
+    "domain": "medical",
+    "notes": "Missing article, wrong tense, missing conjunctions and prepositions"
+  },
+  {
+    "id": "slr_023",
+    "input": "they have meeting two hour ago",
+    "expected": "They had a meeting two hours ago.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article, pluralization"
+  },
+  {
+    "id": "slr_024",
+    "input": "i see doctor yesterday",
+    "expected": "I saw the doctor yesterday.",
+    "domain": "medical",
+    "notes": "Wrong tense, missing article"
+  },
+  {
+    "id": "slr_025",
+    "input": "defendant plead not guilty",
+    "expected": "The defendant pleaded not guilty.",
+    "domain": "legal",
+    "notes": "Missing article, wrong tense"
+  },
+  {
+    "id": "slr_026",
+    "input": "she always arrive late class",
+    "expected": "She always arrives late to class.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing preposition"
+  },
+  {
+    "id": "slr_027",
+    "input": "they sell old house buy new one",
+    "expected": "They sold the old house and bought a new one.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing articles and conjunction"
+  },
+  {
+    "id": "slr_028",
+    "input": "surgery schedule for morning",
+    "expected": "The surgery is scheduled for the morning.",
+    "domain": "medical",
+    "notes": "Missing article, missing auxiliary verb"
+  },
+  {
+    "id": "slr_029",
+    "input": "witness see accident yesterday",
+    "expected": "The witness saw the accident yesterday.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong tense"
+  },
+  {
+    "id": "slr_030",
+    "input": "i can help you",
+    "expected": "I can help you.",
+    "domain": "casual",
+    "notes": "Already correct"
+  },
+  {
+    "id": "slr_031",
+    "input": "thank you very much",
+    "expected": "Thank you very much.",
+    "domain": "casual",
+    "notes": "Already correct"
+  },
+  {
+    "id": "slr_032",
+    "input": "she go store buy milk bread egg",
+    "expected": "She went to the store to buy milk, bread, and eggs.",
+    "domain": "casual",
+    "notes": "Missing articles, wrong tense, missing conjunctions, pluralization"
+  },
+  {
+    "id": "slr_033",
+    "input": "diagnosis show patient has infection",
+    "expected": "The diagnosis shows the patient has an infection.",
+    "domain": "medical",
+    "notes": "Missing articles, wrong tense"
+  },
+  {
+    "id": "slr_034",
+    "input": "contract valid until end year",
+    "expected": "The contract is valid until the end of the year.",
+    "domain": "legal",
+    "notes": "Missing articles, missing auxiliary verb, missing preposition"
+  },
+  {
+    "id": "slr_035",
+    "input": "i live this city ten year",
+    "expected": "I have lived in this city for ten years.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing preposition, pluralization"
+  },
+  {
+    "id": "slr_036",
+    "input": "patient allergic penicillin",
+    "expected": "The patient is allergic to penicillin.",
+    "domain": "medical",
+    "notes": "Missing article, missing auxiliary verb, missing preposition"
+  },
+  {
+    "id": "slr_037",
+    "input": "judge sentence criminal five year prison",
+    "expected": "The judge sentenced the criminal to five years in prison.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong tense, missing prepositions, pluralization"
+  },
+  {
+    "id": "slr_038",
+    "input": "they not want go party",
+    "expected": "They do not want to go to the party.",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb, missing infinitive marker, missing preposition and article"
+  },
+  {
+    "id": "slr_039",
+    "input": "ambulance arrive five minute ago",
+    "expected": "The ambulance arrived five minutes ago.",
+    "domain": "medical",
+    "notes": "Missing article, wrong tense, pluralization"
+  },
+  {
+    "id": "slr_040",
+    "input": "lease agreement include utility",
+    "expected": "The lease agreement includes utilities.",
+    "domain": "legal",
+    "notes": "Missing article, wrong tense, pluralization"
+  },
+  {
+    "id": "slr_041",
+    "input": "he can speak three language",
+    "expected": "He can speak three languages.",
+    "domain": "casual",
+    "notes": "Missing pluralization"
+  },
+  {
+    "id": "slr_042",
+    "input": "symptom include headache fever cough",
+    "expected": "Symptoms include headache, fever, and cough.",
+    "domain": "medical",
+    "notes": "Missing pluralization, missing conjunctions"
+  },
+  {
+    "id": "slr_043",
+    "input": "plaintiff file lawsuit against company",
+    "expected": "The plaintiff filed a lawsuit against the company.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong tense"
+  },
+  {
+    "id": "slr_044",
+    "input": "we enjoy movie very much",
+    "expected": "We enjoyed the movie very much.",
+    "domain": "casual",
+    "notes": "Wrong tense, missing article"
+  },
+  {
+    "id": "slr_045",
+    "input": "blood pressure high need medication",
+    "expected": "Blood pressure is high and needs medication.",
+    "domain": "medical",
+    "notes": "Missing auxiliary verb, missing conjunction"
+  },
+  {
+    "id": "slr_046",
+    "input": "appeal file notice appeal",
+    "expected": "An appeal was filed. Notice of appeal.",
+    "domain": "legal",
+    "notes": "Fragmented legal phrasing"
+  },
+  {
+    "id": "slr_047",
+    "input": "what you want eat",
+    "expected": "What do you want to eat?",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb, missing infinitive marker"
+  },
+  {
+    "id": "slr_048",
+    "input": "heart rate normal",
+    "expected": "Heart rate is normal.",
+    "domain": "medical",
+    "notes": "Missing auxiliary verb"
+  },
+  {
+    "id": "slr_049",
+    "input": "settlement reach both party",
+    "expected": "A settlement was reached between both parties.",
+    "domain": "legal",
+    "notes": "Missing articles, wrong voice, wrong tense, missing prepositions"
+  },
+  {
+    "id": "slr_050",
+    "input": "i not understand question",
+    "expected": "I do not understand the question.",
+    "domain": "casual",
+    "notes": "Missing auxiliary verb, missing article"
+  }
+]
